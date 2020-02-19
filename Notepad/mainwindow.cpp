@@ -22,9 +22,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_triggered()
 {
+    if(maybesaved()){
     ui->textEdit->clear();
     currentfile="";
     ui->textEdit->setFocus();
+    }
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -76,4 +78,19 @@ void MainWindow::on_actionSave_as_triggered()
     QTextStream out(&file);
     out << Text;
     file.close();
+}
+bool MainWindow::maybesaved(){
+    int ret = QMessageBox::warning(this, tr("My Application"),
+                                   tr("Do you want to save your changes?"),
+                                   QMessageBox::Yes | QMessageBox::No|QMessageBox::Cancel);
+
+    switch(ret){
+    case QMessageBox::Yes:
+        on_actionSave_as_triggered();
+           case QMessageBox::No:
+        return true;
+    case QMessageBox::Cancel:
+        return false;
+    }
+    return true;
 }
