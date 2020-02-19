@@ -18,8 +18,10 @@ public:
 private slots:
     void on_actionNew_triggered();
 
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
-    QString Local_file;
+    QString currentfile="";
 };
 #endif // MAINWINDOW_H

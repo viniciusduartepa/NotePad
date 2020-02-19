@@ -1,5 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +23,27 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionNew_triggered()
 {
     ui->textEdit->clear();
-    Local_file="";
+    currentfile="";
     ui->textEdit->setFocus();
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    ui->textEdit->clear();
+    QString filename;
+    filename=QFileDialog::getOpenFileName(this,"Open File ","/c:/","Text File (*.txt)");
+    QFile file(filename);
+    if(!file.open(QIODevice::ReadWrite|QIODevice::Text)){
+        ui->textEdit->setText("ERRO");
+        return;
+    }
+    QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            ui->textEdit->setText(line);
+        }
+
+
+
+
 }

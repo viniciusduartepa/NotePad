@@ -25,6 +25,7 @@ class Ui_MainWindow
 {
 public:
     QAction *actionNew;
+    QAction *actionOpen;
     QWidget *centralwidget;
     QTextEdit *textEdit;
     QMenuBar *menubar;
@@ -35,18 +36,20 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(411, 325);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QString::fromUtf8("actionNew"));
+        actionOpen = new QAction(MainWindow);
+        actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         textEdit = new QTextEdit(centralwidget);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
-        textEdit->setGeometry(QRect(10, 70, 104, 71));
+        textEdit->setGeometry(QRect(0, 0, 411, 281));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 411, 21));
         menuFile = new QMenu(menubar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         MainWindow->setMenuBar(menubar);
@@ -56,6 +59,7 @@ public:
 
         menubar->addAction(menuFile->menuAction());
         menuFile->addAction(actionNew);
+        menuFile->addAction(actionOpen);
 
         retranslateUi(MainWindow);
 
@@ -66,6 +70,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         actionNew->setText(QCoreApplication::translate("MainWindow", "New", nullptr));
+        actionOpen->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
