@@ -29,18 +29,18 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    ui->textEdit->clear();
     QString filename;
     filename=QFileDialog::getOpenFileName(this,"Open File ","/c:/","Text File (*.txt)");
     QFile file(filename);
-    if(!file.open(QIODevice::ReadWrite|QIODevice::Text)){
-        ui->textEdit->setText("ERRO");
+    if(!file.open(QIODevice::ReadOnly|QIODevice::Text)){
+        QMessageBox::warning(this,"ERRO","File not opened");
         return;
     }
+    ui->textEdit->clear();
     QTextStream in(&file);
         while (!in.atEnd()) {
             QString line = in.readLine();
-            ui->textEdit->setText(line);
+            ui->textEdit->append(line);
         }
 
 
