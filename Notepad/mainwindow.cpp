@@ -62,3 +62,18 @@ void MainWindow::on_actionSave_triggered()
     file.close();
 
 }
+
+void MainWindow::on_actionSave_as_triggered()
+{
+    currentfile=QFileDialog::getOpenFileName(this,"Open File ","/c:/","Text File (*.txt)");
+    QFile file(currentfile);
+    if(!file.open(QIODevice::WriteOnly|QIODevice::Text)){
+        QMessageBox::warning(this,"ERRO","File not opened");
+        return;
+    }
+    QString Text=ui->textEdit->toPlainText();
+    file.flush();
+    QTextStream out(&file);
+    out << Text;
+    file.close();
+}

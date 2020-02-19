@@ -27,6 +27,7 @@ public:
     QAction *actionNew;
     QAction *actionOpen;
     QAction *actionSave;
+    QAction *actionSave_as;
     QWidget *centralwidget;
     QTextEdit *textEdit;
     QMenuBar *menubar;
@@ -44,6 +45,8 @@ public:
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(MainWindow);
         actionSave->setObjectName(QString::fromUtf8("actionSave"));
+        actionSave_as = new QAction(MainWindow);
+        actionSave_as->setObjectName(QString::fromUtf8("actionSave_as"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         textEdit = new QTextEdit(centralwidget);
@@ -64,6 +67,7 @@ public:
         menuFile->addAction(actionNew);
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave);
+        menuFile->addAction(actionSave_as);
 
         retranslateUi(MainWindow);
 
@@ -76,6 +80,7 @@ public:
         actionNew->setText(QCoreApplication::translate("MainWindow", "New", nullptr));
         actionOpen->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
         actionSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
+        actionSave_as->setText(QCoreApplication::translate("MainWindow", "Save as", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
