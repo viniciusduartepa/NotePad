@@ -29,9 +29,8 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QString filename;
-    filename=QFileDialog::getOpenFileName(this,"Open File ","/c:/","Text File (*.txt)");
-    QFile file(filename);
+    currentfile=QFileDialog::getOpenFileName(this,"Open File ","/c:/","Text File (*.txt)");
+    QFile file(currentfile);
     if(!file.open(QIODevice::ReadOnly|QIODevice::Text)){
         QMessageBox::warning(this,"ERRO","File not opened");
         return;
@@ -42,8 +41,24 @@ void MainWindow::on_actionOpen_triggered()
             QString line = in.readLine();
             ui->textEdit->append(line);
         }
+        file.close();
+}
 
-
-
+void MainWindow::on_actionSave_triggered()
+{
+    if(currentfile==""){
+        QMessageBox::warning(this,"ERRO!","File not selected");
+        return;
+    }
+    QFile file(currentfile);
+    if(!file.open(QIODevice::WriteOnly|QIODevice::Text)){
+        QMessageBox::warning(this,"ERRO","File not opened");
+        return;
+    }
+    QString Text=ui->textEdit->toPlainText();
+    file.flush();
+    QTextStream out(&file);
+    out << Text;
+    file.close();
 
 }

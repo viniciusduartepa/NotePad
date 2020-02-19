@@ -26,6 +26,7 @@ class Ui_MainWindow
 public:
     QAction *actionNew;
     QAction *actionOpen;
+    QAction *actionSave;
     QWidget *centralwidget;
     QTextEdit *textEdit;
     QMenuBar *menubar;
@@ -41,6 +42,8 @@ public:
         actionNew->setObjectName(QString::fromUtf8("actionNew"));
         actionOpen = new QAction(MainWindow);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QString::fromUtf8("actionSave"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         textEdit = new QTextEdit(centralwidget);
@@ -60,6 +63,7 @@ public:
         menubar->addAction(menuFile->menuAction());
         menuFile->addAction(actionNew);
         menuFile->addAction(actionOpen);
+        menuFile->addAction(actionSave);
 
         retranslateUi(MainWindow);
 
@@ -71,6 +75,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         actionNew->setText(QCoreApplication::translate("MainWindow", "New", nullptr));
         actionOpen->setText(QCoreApplication::translate("MainWindow", "Open", nullptr));
+        actionSave->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
