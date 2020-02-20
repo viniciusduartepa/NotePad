@@ -4,6 +4,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QTextDocument>
+
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
+    curDoc=curText.document();
 }
 
 MainWindow::~MainWindow()
@@ -26,11 +30,13 @@ void MainWindow::on_actionNew_triggered()
     ui->textEdit->clear();
     currentfile="";
     ui->textEdit->setFocus();
+    curDoc->setModified(false);
     }
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
+     if(maybesaved()){
     currentfile=QFileDialog::getOpenFileName(this,"Open File ","/c:/","Text File (*.txt)");
     QFile file(currentfile);
     if(!file.open(QIODevice::ReadOnly|QIODevice::Text)){
@@ -38,18 +44,21 @@ void MainWindow::on_actionOpen_triggered()
         return;
     }
     ui->textEdit->clear();
+
     QTextStream in(&file);
         while (!in.atEnd()) {
             QString line = in.readLine();
             ui->textEdit->append(line);
         }
         file.close();
+        curDoc->setModified(false);
+     }
 }
 
 void MainWindow::on_actionSave_triggered()
 {
     if(currentfile==""){
-        QMessageBox::warning(this,"ERRO!","File not selected");
+        on_actionSave_as_triggered();
         return;
     }
     QFile file(currentfile);
@@ -62,6 +71,8 @@ void MainWindow::on_actionSave_triggered()
     QTextStream out(&file);
     out << Text;
     file.close();
+    curDoc->setModified(false);
+
 
 }
 
@@ -78,19 +89,30 @@ void MainWindow::on_actionSave_as_triggered()
     QTextStream out(&file);
     out << Text;
     file.close();
+    curDoc->setModified(false);
 }
+
 bool MainWindow::maybesaved(){
+    if(!curDoc->isModified())return true;
     int ret = QMessageBox::warning(this, tr("My Application"),
                                    tr("Do you want to save your changes?"),
                                    QMessageBox::Yes | QMessageBox::No|QMessageBox::Cancel);
 
     switch(ret){
     case QMessageBox::Yes:
-        on_actionSave_as_triggered();
+        on_actionSave_triggered();
+            return true;
            case QMessageBox::No:
         return true;
     case QMessageBox::Cancel:
         return false;
     }
     return true;
+}
+
+void MainWindow::on_textEdit_textChanged()
+{
+  curText.setText(ui->textEdit->toPlainText());
+  curDoc->setModified(true);
+
 }

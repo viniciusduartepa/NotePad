@@ -1,7 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
 #include <QMainWindow>
+#include <QTextEdit>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,10 +27,13 @@ private slots:
 
     void on_actionSave_as_triggered();
 
+    void on_textEdit_textChanged();
+
 private:
     Ui::MainWindow *ui;
     QString currentfile="";
     bool maybesaved();
-
+    QTextEdit curText;
+    QTextDocument *curDoc;
 };
 #endif // MAINWINDOW_H
