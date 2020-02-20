@@ -29,11 +29,16 @@ private slots:
 
     void on_textEdit_textChanged();
 
+    void on_actionCopy_triggered();
+
+    void on_actionPaste_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString currentfile="";
     bool maybesaved();
     QTextEdit curText;
     QTextDocument *curDoc;
+    QString copyText;
 };
 #endif // MAINWINDOW_H

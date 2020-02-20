@@ -116,3 +116,14 @@ void MainWindow::on_textEdit_textChanged()
   curDoc->setModified(true);
 
 }
+
+void MainWindow::on_actionCopy_triggered()
+{
+    copyText=ui->textEdit->toPlainText();
+}
+
+void MainWindow::on_actionPaste_triggered()
+{
+       ui->textEdit->setText(ui->textEdit->toPlainText()+copyText);
+}
+
