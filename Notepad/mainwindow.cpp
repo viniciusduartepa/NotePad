@@ -119,11 +119,11 @@ void MainWindow::on_textEdit_textChanged()
 
 void MainWindow::on_actionCopy_triggered()
 {
-    copyText=ui->textEdit->toPlainText();
+    ui->textEdit->copy();
 }
 
 void MainWindow::on_actionPaste_triggered()
 {
-       ui->textEdit->setText(ui->textEdit->toPlainText()+copyText);
+      ui->textEdit->paste();
 }
 
